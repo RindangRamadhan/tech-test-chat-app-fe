@@ -6,7 +6,7 @@ const messages = ref<{ text: string; sender: string }[]>([])
 const inputMessage = ref('')
 const username = ref(localStorage.getItem('username') || 'User' + Math.floor(Math.random() * 1000))
 const chatContainer = ref<HTMLElement | null>(null)
-const wsClient = new WebSocketClient('ws://localhost:3000')
+const wsClient = new WebSocketClient(import.meta.env.VITE_WEBSOCKET_URL)
 
 onMounted(() => {
   wsClient.onMessage((data) => {
