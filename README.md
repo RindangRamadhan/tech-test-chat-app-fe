@@ -1,64 +1,44 @@
-# simple-chat-app
+# Chat App
 
-This template should help get you started developing with Vue 3 in Vite.
+## Description
 
-## Recommended IDE Setup
+A Simple Chat App Front-End built with Vue.js 3 and WebSocket for real-time communication.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Prerequisites
 
-## Type Support for `.vue` Imports in TS
+Before running the project, make sure you have the following installed:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Node.js (version 23 or later)
+- Vue CLI (optional, for further development)
 
-## Customize configuration
+## Installation & Setup
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 1. Clone Repository
 
-## Project Setup
+```sh
+git clone https://github.com/RindangRamadhan/tech-test-chat-app-fe.git
+```
+
+### 2. Install Dependencies
+
+Create a .env file and configure the WebSocket settings as needed. Example:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 3. Setup Environment Variables
+
+Copy the `.env.example` file and rename it to `.env`. Modify the .env file if necessary.
+
+```sh
+cp .env.example .env
+```
+
+### Running the Project
+
+Start the application with, and access the app in your browser at: http://localhost:5173/
 
 ```sh
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
