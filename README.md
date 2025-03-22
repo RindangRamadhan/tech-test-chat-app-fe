@@ -42,3 +42,6 @@ Start the application with, and access the app in your browser at: http://localh
 ```sh
 npm run dev
 ```
+
+Example Results :
+![alt text](./src/assets/images/sample-chat.png)
