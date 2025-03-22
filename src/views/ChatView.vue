@@ -1,43 +1,3 @@
-<script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import { WebSocketClient } from '@/websocket'
-
-const messages = ref<{ text: string; sender: string }[]>([])
-const inputMessage = ref('')
-const username = ref(localStorage.getItem('username') || 'User' + Math.floor(Math.random() * 1000))
-const chatContainer = ref<HTMLElement | null>(null)
-const wsClient = new WebSocketClient(import.meta.env.VITE_WEBSOCKET_URL)
-
-onMounted(() => {
-  wsClient.onMessage((data) => {
-    const msg = JSON.parse(data)
-    messages.value.push(msg)
-    scrollToBottom()
-  })
-})
-
-const sendMessage = () => {
-  if (inputMessage.value.trim() !== '') {
-    const message = { text: inputMessage.value, sender: username.value }
-    wsClient.sendMessage(JSON.stringify(message))
-    inputMessage.value = ''
-    scrollToBottom()
-  }
-}
-
-const scrollToBottom = () => {
-  nextTick(() => {
-    if (chatContainer.value) {
-      chatContainer.value.scrollTop = chatContainer.value.scrollHeight
-    }
-  })
-}
-
-const getRandomAvatar = (sender: string) => {
-  return `https://api.dicebear.com/8.x/adventurer/svg?seed=${sender.replace(/\s+/g, '')}`
-}
-</script>
-
 <template>
   <div class="chat-container">
     <div class="dark-overlay"></div>
@@ -63,3 +23,47 @@ const getRandomAvatar = (sender: string) => {
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { ref, nextTick } from 'vue'
+import { WebSocketClient } from '@/websocket'
+
+export default {
+  data() {
+    return {
+      messages: [] as { text: string; sender: string }[],
+      inputMessage: '',
+      username: localStorage.getItem('username') || 'User' + Math.floor(Math.random() * 1000),
+      chatContainer: null as HTMLElement | null,
+      wsClient: new WebSocketClient(import.meta.env.VITE_WEBSOCKET_URL),
+    }
+  },
+  mounted() {
+    this.wsClient.onMessage((data) => {
+      const msg = JSON.parse(data)
+      this.messages.push(msg)
+      this.scrollToBottom()
+    })
+  },
+  methods: {
+    sendMessage() {
+      if (this.inputMessage.trim() !== '') {
+        const message = { text: this.inputMessage, sender: this.username }
+        this.wsClient.sendMessage(JSON.stringify(message))
+        this.inputMessage = ''
+        this.scrollToBottom()
+      }
+    },
+    scrollToBottom() {
+      nextTick(() => {
+        if (this.chatContainer) {
+          this.chatContainer.scrollTop = this.chatContainer.scrollHeight
+        }
+      })
+    },
+    getRandomAvatar(sender: string) {
+      return `https://api.dicebear.com/8.x/adventurer/svg?seed=${sender.replace(/\s+/g, '')}`
+    },
+  },
+}
+</script>
